@@ -1,94 +1,577 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Syne:wght@600;700;800&display=swap');
 
+/* ===================================================
+   1. DESIGN TOKENS
+   =================================================== */
 :root {
-  --bg-dark: #000000;
-  --bg-matrix: #030014;
-  --text-primary: #ffffff;
+  /* Background layers */
+  --bg-dark:        #000000;
+  --bg-space-950:   #030014;
+  --bg-space-900:   #050520;
+  --bg-space-800:   #0a0a2e;
+
+  /* Brand colors */
+  --brand-cyan:     #00f5ff;
+  --brand-purple:   #7000ff;
+  --brand-pink:     #ff007f;
+
+  /* Neon aliases (shared with older components) */
+  --neon-cyan:      #00f5ff;
+  --neon-purple:    #9d4edd;
+  --neon-pink:      #ff007f;
+
+  /* Text */
+  --text-primary:   #ffffff;
   --text-secondary: #8a8f98;
-  
-  --brand-cyan: #00f5ff;
-  --brand-purple: #7000ff;
-  --brand-pink: #ff007f;
-  
-  --glass-bg: rgba(255, 255, 255, 0.02);
-  --glass-border: rgba(255, 255, 255, 0.07);
-  --glass-glow: rgba(112, 0, 255, 0.15);
-  
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --text-main:      #f8fafc;
+  --text-muted:     #94a3b8;
+
+  /* Glass surfaces */
+  --glass-bg:       rgba(255, 255, 255, 0.025);
+  --glass-border:   rgba(255, 255, 255, 0.07);
+  --glass-glow:     rgba(112, 0, 255, 0.18);
+  --glass-hover:    rgba(0, 245, 255, 0.12);
+
+  /* Typography */
+  --font-display:   'Syne', sans-serif;
+  --font-body:      'Plus Jakarta Sans', sans-serif;
 }
 
-* {
+/* ===================================================
+   2. BASE RESET
+   =================================================== */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   user-select: none;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background-color: var(--bg-dark);
+  background-color: var(--bg-space-950);
   color: var(--text-primary);
   font-family: var(--font-body);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 🧪 Linear/Vercel Grid Overlay */
+/* ===================================================
+   3. SCROLLBAR
+   =================================================== */
+::-webkit-scrollbar          { width: 4px; }
+::-webkit-scrollbar-track    { background: #000; }
+::-webkit-scrollbar-thumb    { background: var(--brand-purple); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--brand-cyan); }
+
+/* ===================================================
+   4. LAYOUT ARCHITECTURE
+   =================================================== */
+
+/* Grid background texture — reveals on mouse spotlight */
 .grid-distortion-layer {
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.18;
+  opacity: 0.15;
   background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 10%, transparent 60%);
-  -webkit-mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 10%, transparent 60%);
+  background-image:
+    linear-gradient(to right,  rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse 600px 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 600px 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%);
+  transition: mask-position 0.1s ease;
 }
 
-/* 💎 Premium Glassmorphism */
-.elite-glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-  transition: border-color 0.5s ease, box-shadow 0.5s ease;
-}
-
-.elite-glass:hover {
-  border-color: rgba(0, 245, 255, 0.3);
-  box-shadow: 0 0 40px var(--glass-glow);
-}
-
-/* 🎛️ Page Architecture & Smooth Snapping */
+/* Outer scroll shell — the viewport */
 .scroll-engine {
-  scroll-snap-type: y mandatory;
+  position: relative;
   overflow-y: auto;
+  overflow-x: hidden;
   height: 100vh;
+  z-index: 5;
 }
 
+/* Full-viewport snap section */
 .viewport-snap {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
 }
 
-/* 💫 Apple-Style Reveal Utilities */
+/* Non-snapping generic section (for marquee strip etc.) */
+.section-container {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+/* ===================================================
+   5. GLASS COMPONENTS
+   =================================================== */
+.elite-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.elite-glass:hover {
+  border-color: rgba(0, 245, 255, 0.25);
+  box-shadow: 0 0 40px var(--glass-glow), 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.glass-panel {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ===================================================
+   6. TYPOGRAPHY UTILITIES
+   =================================================== */
 .reveal-mask {
-  background: linear-gradient(to bottom, #ffffff 30%, #8a8f98 100%);
+  background: linear-gradient(to bottom, #ffffff 30%, rgba(138, 143, 152, 0.6) 100%);
   background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* 🏎️ Custom Track Bar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: var(--brand-purple); border-radius: 4px; }
+.text-gradient-neon {
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(90deg, var(--brand-cyan), #4af7ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===================================================
+   7. ANIMATIONS & KEYFRAMES
+   =================================================== */
+@keyframes float-blob {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33%       { transform: translate(30px, -50px) scale(1.1) rotate(120deg); }
+  66%       { transform: translate(-20px, 20px) scale(0.95) rotate(240deg); }
+}
+
+@keyframes marquee-forward {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes counter-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================================================
+   8. NAV
+   =================================================== */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.25rem max(1.5rem, 5vw);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.site-nav.scrolled {
+  background: rgba(3, 0, 20, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom-color: var(--glass-border);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo span {
+  color: var(--brand-cyan);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+  cursor: pointer;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--brand-cyan);
+}
+
+.nav-cta {
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  color: #fff;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s, box-shadow 0.3s, color 0.3s;
+  text-decoration: none;
+}
+
+.nav-cta:hover {
+  border-color: var(--brand-cyan);
+  color: var(--brand-cyan);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
+
+/* ===================================================
+   9. HERO-SPECIFIC
+   =================================================== */
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: float-blob 18s ease-in-out infinite;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(0,245,255,0.3);
+  background: rgba(0,245,255,0.05);
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: var(--brand-cyan);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-cyan);
+  animation: pulse-glow 2s ease infinite;
+  flex-shrink: 0;
+}
+
+.hero-btn-primary {
+  padding: 0.9rem 2.25rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, var(--brand-purple), var(--brand-pink));
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.hero-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(112,0,255,0.45);
+}
+
+.hero-btn-ghost {
+  padding: 0.9rem 2.25rem;
+  border-radius: 9999px;
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  outline: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-btn-ghost:hover {
+  border-color: var(--brand-cyan);
+  color: var(--brand-cyan);
+  box-shadow: 0 0 25px rgba(0,245,255,0.15);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-family: monospace;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: default;
+}
+
+.scroll-indicator-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--brand-cyan), transparent);
+  animation: pulse-glow 2s ease infinite;
+}
+
+/* ===================================================
+   10. ABOUT SECTION
+   =================================================== */
+.about-stat-card {
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  flex: 1;
+  min-width: 140px;
+}
+
+.about-stat-number {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.about-stat-label {
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: var(--text-secondary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ===================================================
+   11. SKILLS / CAPABILITIES
+   =================================================== */
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  background: rgba(112, 0, 255, 0.08);
+  border: 1px solid rgba(112, 0, 255, 0.2);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: border-color 0.3s, color 0.3s, background 0.3s;
+}
+
+.skill-pill:hover {
+  border-color: var(--brand-cyan);
+  color: var(--brand-cyan);
+  background: rgba(0, 245, 255, 0.06);
+}
+
+/* ===================================================
+   12. MARQUEE STRIP
+   =================================================== */
+.marquee-strip {
+  width: 100%;
+  overflow: hidden;
+  padding: 1.5rem 0;
+  border-top:    1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(5, 5, 32, 0.6);
+  position: relative;
+  z-index: 10;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  animation: marquee-forward 30s linear infinite;
+}
+
+.marquee-track-reverse {
+  animation: marquee-reverse 28s linear infinite;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.12);
+  white-space: nowrap;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.marquee-separator {
+  color: var(--brand-pink);
+  -webkit-text-stroke: 0;
+  opacity: 1;
+}
+
+/* ===================================================
+   13. PROJECT CARDS
+   =================================================== */
+.project-card {
+  width: 400px;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  cursor: grab;
+  transition: transform 0.4s ease;
+}
+
+.project-card:active { cursor: grabbing; }
+
+.project-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(3,0,20,0.98) 0%, rgba(3,0,20,0.4) 50%, transparent 100%);
+  transition: opacity 0.4s ease;
+}
+
+.project-card-meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 1.75rem;
+  transform: translateY(0);
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-card-meta { transform: translateY(-8px); }
+
+/* ===================================================
+   14. TIMELINE
+   =================================================== */
+.timeline-node {
+  position: absolute;
+  left: -13px;
+  top: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg-space-950);
+  border: 2px solid var(--brand-purple);
+  box-shadow: 0 0 12px var(--brand-purple), 0 0 24px rgba(112,0,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-node::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-cyan);
+}
+
+/* ===================================================
+   15. CONTACT
+   =================================================== */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.3s, color 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: pointer;
+  background: var(--glass-bg);
+}
+
+.social-link:hover {
+  border-color: var(--brand-cyan);
+  color: var(--brand-cyan);
+  background: rgba(0,245,255,0.05);
+  box-shadow: 0 0 20px rgba(0,245,255,0.12);
+}

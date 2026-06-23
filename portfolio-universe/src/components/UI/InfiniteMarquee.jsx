@@ -1,54 +1,42 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React from 'react';
 
-export default function InfiniteMarquee() {
-  const lineItems = [
-    "AWWWARDS SITE OF THE DAY",
-    "INTERACTIVE PIPELINE ARCHITECTURE",
-    "VISUAL INTERFACE DESIGN",
-    "DIGITAL MATRIX",
-  ];
+const ROW_1 = [
+  'UI/UX Design', 'React', 'Figma', 'Framer Motion',
+  'Three.js', 'Next.js', 'TypeScript', 'Design Systems',
+];
+
+const ROW_2 = [
+  'Prototyping', 'GSAP', 'CSS Animation', 'WebGL',
+  'User Research', 'Node.js', 'Interaction Design', 'Motion',
+];
+
+function MarqueeRow({ items, reverse = false }) {
+  // Duplicate items for seamless loop
+  const doubled = [...items, ...items];
 
   return (
-    <div
-      style={{
-        width: "100vw",
-        overflow: "hidden",
-        borderY: "1px solid var(--glass-border)",
-        background: "rgba(5, 5, 21, 0.6)",
-        padding: "2rem 0",
-        position: "relative",
-        zIndex: 10,
-      }}
-    >
-      <motion.div
-        animate={{ x: [0, -1000] }}
-        transition={{ ease: "linear", duration: 25, repeat: Infinity }}
-        style={{
-          display: "flex",
-          gap: "4rem",
-          whiteSpace: "nowrap",
-          width: "max-content",
-        }}
+    <div style={{ overflow: 'hidden', width: '100%' }}>
+      <div
+        className={`marquee-track${reverse ? ' marquee-track-reverse' : ''}`}
+        style={{ display: 'flex' }}
       >
-        {[...lineItems, ...lineItems].map((text, index) => (
-          <h3
-            key={index}
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "3rem",
-              fontWeight: 800,
-              color: "transparent",
-              WebkitTextStroke: "1px rgba(255,255,255,0.15)",
-              display: "flex",
-              alignItems: "center",
-              gap: "2rem",
-            }}
-          >
-            {text} <span style={{ color: "var(--brand-pink)" }}>//</span>
-          </h3>
+        {doubled.map((text, i) => (
+          <span key={i} className="marquee-item">
+            {text}
+            <span className="marquee-separator">✦</span>
+          </span>
         ))}
-      </motion.div>
+      </div>
+    </div>
+  );
+}
+
+export default function InfiniteMarquee() {
+  return (
+    <div className="marquee-strip section-container" style={{ padding: '2rem 0' }}>
+      <MarqueeRow items={ROW_1} />
+      <div style={{ height: '0.75rem' }} />
+      <MarqueeRow items={ROW_2} reverse />
     </div>
   );
 }
