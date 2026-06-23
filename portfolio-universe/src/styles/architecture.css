@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap');
+
+:root {
+  --bg-dark: #000000;
+  --bg-matrix: #030014;
+  --text-primary: #ffffff;
+  --text-secondary: #8a8f98;
+  
+  --brand-cyan: #00f5ff;
+  --brand-purple: #7000ff;
+  --brand-pink: #ff007f;
+  
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-glow: rgba(112, 0, 255, 0.15);
+  
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 🧪 Linear/Vercel Grid Overlay */
+.grid-distortion-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.18;
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 10%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 10%, transparent 60%);
+}
+
+/* 💎 Premium Glassmorphism */
+.elite-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.elite-glass:hover {
+  border-color: rgba(0, 245, 255, 0.3);
+  box-shadow: 0 0 40px var(--glass-glow);
+}
+
+/* 🎛️ Page Architecture & Smooth Snapping */
+.scroll-engine {
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.viewport-snap {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* 💫 Apple-Style Reveal Utilities */
+.reveal-mask {
+  background: linear-gradient(to bottom, #ffffff 30%, #8a8f98 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 🏎️ Custom Track Bar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: var(--brand-purple); border-radius: 4px; }

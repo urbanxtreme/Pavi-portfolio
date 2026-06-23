@@ -1,0 +1,124 @@
+/* ==========================================
+   1. VARIABLES & RESET
+   ========================================== */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Syne:wght@700;800&display=swap");
+
+:root {
+  --bg-space-950: #030014;
+  --bg-space-900: #050515;
+  --neon-cyan: #00f5ff;
+  --neon-purple: #9d4edd;
+  --neon-pink: #ff007f;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-display: "Syne", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-space-950);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-space-950);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(157, 78, 221, 0.3);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 245, 255, 0.5);
+}
+
+/* ==========================================
+   2. REUSABLE UI PATTERNS
+   ========================================== */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.section-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 10;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding: 0 6rem;
+  }
+}
+
+/* ==========================================
+   3. ANIMATIONS & EFFECTS
+   ========================================== */
+@keyframes mesh-slow {
+  0%,
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+.aurora-glow {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 24rem;
+  height: 24rem;
+  background: rgba(157, 78, 221, 0.1);
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  animation: mesh-slow 20s ease infinite;
+}
+
+.text-gradient-main {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  background: linear-gradient(to bottom, #ffffff, #cbd5e1, #64748b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-neon {
+  background: linear-gradient(
+    to right,
+    var(--neon-cyan),
+    var(--neon-purple),
+    var(--neon-pink)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
