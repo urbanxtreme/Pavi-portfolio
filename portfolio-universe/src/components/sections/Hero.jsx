@@ -63,7 +63,7 @@ export default function Hero() {
           className="reveal-mask"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(3.5rem, 9vw, 9rem)',
+            fontSize: 'clamp(2.5rem, 10vw, 9rem)',
             fontWeight: 800,
             lineHeight: 0.92,
             letterSpacing: '-0.04em',
@@ -142,7 +142,7 @@ export default function Hero() {
         {/* Floating stat chips */}
         <motion.div
           variants={item}
-          style={{ display: 'flex', gap: '2rem', marginTop: '4rem', flexWrap: 'wrap' }}
+          className="hero-stats"
         >
           {[
             { val: '30+', label: 'Projects' },

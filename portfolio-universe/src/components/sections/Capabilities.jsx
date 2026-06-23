@@ -78,15 +78,7 @@ export default function Capabilities() {
         initial={{ opacity: 0, y: 50 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1.25rem',
-          width: '100%',
-          maxWidth: '1400px',
-          margin: '0 auto',
-          zIndex: 10,
-        }}
+        className="bento-grid"
       >
         {BENTO_CARDS.map((card, i) => (
           <GlassBento key={i} spanX={card.spanX} spanY={card.spanY}>

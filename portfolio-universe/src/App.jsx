@@ -66,19 +66,11 @@ export default function App() {
       {/* WebGL background canvas */}
       <Scene renderState={renderState} />
 
-      {/* Scroll engine — snapped sections container */}
+      {/* Scroll engine — smooth scroll + proximity snap */}
       <div
         ref={scrollRef}
         onScroll={monitorWaypoints}
-        style={{
-          position: "relative",
-          overflowY: "scroll",
-          overflowX: "hidden",
-          height: "100vh",
-          zIndex: 5,
-          /* Snap only hero/about/capabilities, not the marquee strip */
-          scrollSnapType: "none",
-        }}
+        className="scroll-engine"
       >
         <Hero />
         <About />

@@ -95,12 +95,16 @@ body {
   overflow-x: hidden;
   height: 100vh;
   z-index: 5;
+  /* Smooth inertia scroll on all platforms */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Proximity snapping feels natural without fighting momentum */
+  scroll-snap-type: y proximity;
 }
 
 /* Full-viewport snap section */
 .viewport-snap {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
   height: 100vh;
   width: 100%;
   position: relative;
@@ -574,4 +578,72 @@ body {
   color: var(--brand-cyan);
   background: rgba(0,245,255,0.05);
   box-shadow: 0 0 20px rgba(0,245,255,0.12);
+}
+
+/* ===================================================
+   16. RESPONSIVE UTILITIES & GRIDS
+   =================================================== */
+
+/* Bento Grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  z-index: 10;
+}
+
+/* Contact Grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Hero Stats Container */
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 4rem;
+  flex-wrap: wrap;
+}
+
+/* Mobile Breakpoints */
+@media (max-width: 900px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Typographic Adjustments */
+  h1 { line-height: 1 !important; }
+  
+  /* Bento Grid Mobile - Force Single Column */
+  .bento-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .bento-grid > div {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+  }
+
+  /* Contact Form Mobile - Force Single Column */
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Carousel Cards - Fluid width instead of 400px */
+  .project-card {
+    width: 85vw !important;
+    max-width: 380px;
+  }
+  
+  /* Hero section padding and alignment */
+  .hero-stats {
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
 }
