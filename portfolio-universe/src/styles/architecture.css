@@ -111,6 +111,8 @@ body {
   overflow: hidden;
   display: flex;
   align-items: center;
+  padding-top: 100px; /* Safe space to prevent navbar collisions on short screens */
+  box-sizing: border-box;
 }
 
 /* Non-snapping generic section (for marquee strip etc.) */
