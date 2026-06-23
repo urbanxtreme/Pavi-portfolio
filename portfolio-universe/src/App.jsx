@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll, AnimatePresence } from "framer-motion";
 
 // Canvas background
 import Scene from "./components/canvas/Scene";
@@ -8,6 +8,7 @@ import Scene from "./components/canvas/Scene";
 import DynamicCursor from "./components/UI/DynamicCursor";
 import Navbar from "./components/UI/Navbar";
 import InfiniteMarquee from "./components/UI/InfiniteMarquee";
+import Preloader from "./components/UI/Preloader";
 
 // Sections
 import Hero from "./components/sections/Hero";
@@ -21,6 +22,7 @@ import FinalConvergence from "./components/sections/FinalConvergence";
 import "./styles/architecture.css";
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [renderState, setRenderState] = useState("hero");
   const scrollRef = useRef(null);
 
@@ -40,6 +42,10 @@ export default function App() {
 
   return (
     <div style={{ backgroundColor: "#000", width: "100vw", height: "100vh", position: "relative", overflow: "hidden" }}>
+
+      <AnimatePresence>
+        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+      </AnimatePresence>
 
       {/* Custom cursor */}
       <DynamicCursor />

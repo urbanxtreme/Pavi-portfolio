@@ -61,9 +61,10 @@ export default function Capabilities() {
 
         <h2 style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+          fontSize: 'clamp(1.5rem, 10vw, 3.5rem)',
           fontWeight: 800,
           lineHeight: 1.05,
+          wordBreak: 'break-word',
         }}>
           CAPABILITIES{' '}
           <span className="text-gradient-neon">MATRIX</span>

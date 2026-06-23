@@ -21,7 +21,7 @@ function Counter({ from = 0, to, suffix = '' }) {
   return (
     <span ref={ref} style={{
       fontFamily: 'var(--font-display)',
-      fontSize: '3.5rem',
+      fontSize: 'clamp(2rem, 10vw, 3.5rem)',
       fontWeight: 800,
       background: 'linear-gradient(135deg, var(--brand-cyan), var(--neon-purple))',
       backgroundClip: 'text',

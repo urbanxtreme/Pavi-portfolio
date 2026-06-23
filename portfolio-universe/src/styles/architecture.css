@@ -618,6 +618,16 @@ body {
 }
 
 @media (max-width: 768px) {
+  /* Prevent sections from clipping content on small mobile screens */
+  .viewport-snap {
+    height: auto !important;
+    min-height: 100svh !important;
+    padding-top: 120px !important; /* Account for navbar */
+    padding-bottom: 60px !important;
+    align-items: flex-start !important; /* Stop center-alignment from pushing content off the top */
+    overflow: visible !important;
+  }
+
   /* Typographic Adjustments */
   h1 { line-height: 1 !important; }
   
