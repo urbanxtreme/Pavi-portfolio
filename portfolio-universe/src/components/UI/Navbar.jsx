@@ -35,7 +35,7 @@ export default function Navbar({ scrollRef }) {
     <nav className={`site-nav${scrolled ? ' scrolled' : ''}`}>
       {/* Logo */}
       <a className="nav-logo" onClick={() => scrollTo('hero')} style={{ cursor: 'pointer' }}>
-        PAV<span>I</span>
+        PAVITHR<span>A</span>
       </a>
 
       {/* Links */}

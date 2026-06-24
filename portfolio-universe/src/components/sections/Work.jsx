@@ -4,39 +4,53 @@ import { motion, useInView, useMotionValue, useTransform, animate } from 'framer
 const PROJECTS = [
   {
     id: 1,
-    name: 'Brand Identity Portal',
-    category: 'UI/UX Design · Figma',
-    year: '2024',
-    color: 'rgba(0,245,255,0.08)',
-    accent: '#00f5ff',
-    img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=700&auto=format&fit=crop',
-  },
-  {
-    id: 2,
-    name: 'Motion Design System',
-    category: 'Framer Motion · React',
-    year: '2024',
-    color: 'rgba(112,0,255,0.08)',
-    accent: '#9d4edd',
-    img: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=700&auto=format&fit=crop',
-  },
-  {
-    id: 3,
-    name: 'E-Commerce Redesign',
-    category: 'UX Research · Next.js',
-    year: '2023',
-    color: 'rgba(255,0,127,0.08)',
-    accent: '#ff007f',
-    img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=700&auto=format&fit=crop',
-  },
-  {
-    id: 4,
-    name: 'Dashboard Analytics UI',
-    category: 'Data Visualisation · D3',
-    year: '2023',
+    name: 'Compensation Analytics',
+    category: 'Web App · Next.js & Redux',
+    year: '2025',
+    desc: 'Production-ready salary analytics dashboard analyzing regional salary distributions with interactive Recharts visualizations.',
     color: 'rgba(0,245,255,0.08)',
     accent: '#00f5ff',
     img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=700&auto=format&fit=crop',
+  },
+  {
+    id: 2,
+    name: 'Cosmic Explorer',
+    category: 'Three.js · NASA Space Apps',
+    year: '2025',
+    desc: 'Immersive space exploration web application rendering space datasets and 3D Solar System models. Global Nominee award-winner.',
+    color: 'rgba(112,0,255,0.08)',
+    accent: '#9d4edd',
+    img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=700&auto=format&fit=crop',
+  },
+  {
+    id: 3,
+    name: 'RakshaMitra Safety',
+    category: 'React & Twilio · IEEE Hackathon',
+    year: '2025',
+    desc: 'Secure personal safety web application with Twilio SMS integration and PostgreSQL real-time tracking. IEEE Epilogue 3rd Prize.',
+    color: 'rgba(255,0,127,0.08)',
+    accent: '#ff007f',
+    img: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=700&auto=format&fit=crop',
+  },
+  {
+    id: 4,
+    name: 'Voyage Vista',
+    category: 'Leaflet.js · Transport Map',
+    year: '2024',
+    desc: 'Unified transport integration platform with interactive Leaflet.js route mapping, optimized client-side filtering algorithms.',
+    color: 'rgba(0,245,255,0.08)',
+    accent: '#00f5ff',
+    img: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=700&auto=format&fit=crop',
+  },
+  {
+    id: 5,
+    name: 'HVH Disease Forecast',
+    category: 'ML & Python · Health Dashboard',
+    year: '2024',
+    desc: 'Machine learning health forecasting system using Scikit-Learn classification models and Pandas/NumPy preprocessing pipelines.',
+    color: 'rgba(112,0,255,0.08)',
+    accent: '#9d4edd',
+    img: 'https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?q=80&w=700&auto=format&fit=crop',
   },
 ];
 
@@ -200,7 +214,7 @@ export default function Work() {
             >
               {/* Image area — pointer-events none so drag isn't hijacked */}
               <div style={{
-                width: '100%', height: '65%',
+                width: '100%', height: '48%',
                 overflow: 'hidden', position: 'relative',
                 pointerEvents: 'none',
               }}>
@@ -220,13 +234,13 @@ export default function Work() {
               {/* Meta info */}
               <div style={{
                 position: 'absolute', bottom: 0, left: 0, right: 0,
-                padding: '1.5rem 1.75rem',
+                padding: '1.25rem 1.5rem',
                 transition: 'transform 0.35s ease',
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.45rem' }}>
                   <span style={{
                     fontSize: '0.68rem', color: project.accent,
-                    fontFamily: 'monospace', letterSpacing: '0.15em', textTransform: 'uppercase',
+                    fontFamily: 'monospace', letterSpacing: '0.12em', textTransform: 'uppercase',
                   }}>
                     {project.category}
                   </span>
@@ -237,17 +251,27 @@ export default function Work() {
 
                 <h3 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: '1.4rem', fontWeight: 700,
-                  color: '#fff', lineHeight: 1.2, marginBottom: '0.85rem',
+                  fontSize: '1.25rem', fontWeight: 700,
+                  color: '#fff', lineHeight: 1.2, marginBottom: '0.45rem',
                 }}>
                   {project.name}
                 </h3>
 
+                <p style={{
+                  fontSize: '0.78rem',
+                  color: 'var(--text-muted)',
+                  lineHeight: '1.45',
+                  marginBottom: '0.85rem',
+                  fontWeight: 300,
+                }}>
+                  {project.desc}
+                </p>
+
                 <span style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                  padding: '0.38rem 0.9rem', borderRadius: 9999,
+                  padding: '0.3rem 0.8rem', borderRadius: 9999,
                   border: `1px solid ${project.accent}44`,
-                  fontSize: '0.72rem', color: project.accent,
+                  fontSize: '0.7rem', color: project.accent,
                   fontFamily: 'monospace', letterSpacing: '0.1em',
                   background: `${project.accent}0d`,
                 }}>

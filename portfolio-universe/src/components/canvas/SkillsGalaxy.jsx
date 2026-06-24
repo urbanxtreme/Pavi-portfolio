@@ -4,11 +4,11 @@ import { Text } from '@react-three/drei';
 
 // Unique design tokens for our skill planets
 const SKILLS = [
-  { name: 'React / Vite', color: '#00f5ff', radius: 1.6, speed: 0.5 },
-  { name: 'Three.js / WebGL', color: '#ff007f', radius: 2.3, speed: 0.35 },
-  { name: 'Vanilla CSS 3', color: '#9d4edd', radius: 3.1, speed: 0.25 },
-  { name: 'Node.js Engine', color: '#10b981', radius: 3.8, speed: 0.18 },
-  { name: 'Framer Motion', color: '#f59e0b', radius: 4.6, speed: 0.12 },
+  { name: 'React.js / Next.js', color: '#00f5ff', radius: 1.6, speed: 0.5 },
+  { name: 'Python / ML', color: '#ff007f', radius: 2.3, speed: 0.35 },
+  { name: 'Pandas & NumPy', color: '#9d4edd', radius: 3.1, speed: 0.25 },
+  { name: 'SQL Databases', color: '#10b981', radius: 3.8, speed: 0.18 },
+  { name: 'Figma Design', color: '#f59e0b', radius: 4.6, speed: 0.12 },
 ];
 
 function SkillPlanet({ name, color, radius, speed }) {

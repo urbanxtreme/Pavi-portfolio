@@ -8,7 +8,7 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 60 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export default function Hero() {
@@ -63,7 +63,7 @@ export default function Hero() {
           className="reveal-mask"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2.5rem, 10vw, 9rem)',
+            fontSize: 'clamp(2.5rem, 8vw, 8rem)',
             fontWeight: 800,
             lineHeight: 0.92,
             letterSpacing: '-0.04em',
@@ -71,7 +71,7 @@ export default function Hero() {
             maxWidth: '900px',
           }}
         >
-          PAVI
+          PAVITHRA
           <br />
           <span style={{ color: 'var(--brand-cyan)', WebkitTextFillColor: 'var(--brand-cyan)' }}>
             .CREATES
@@ -83,7 +83,7 @@ export default function Hero() {
           variants={item}
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(1rem, 2vw, 1.5rem)',
+            fontSize: 'clamp(0.9rem, 1.8vw, 1.3rem)',
             fontWeight: 700,
             color: 'var(--text-secondary)',
             letterSpacing: '0.3em',
@@ -91,7 +91,7 @@ export default function Hero() {
             marginBottom: '1.5rem',
           }}
         >
-          UI / UX Designer &amp; Developer
+          Frontend Developer,UI/UX Designer &amp; Data Analyst
         </motion.p>
 
         {/* Tagline */}
@@ -106,8 +106,7 @@ export default function Hero() {
             marginBottom: '3rem',
           }}
         >
-          Crafting immersive digital experiences where design and code collide.
-          Inspired by Apple, Stripe, and Framer — built to leave a mark.
+          Final-Year B.Tech Computer Science Engineering student specializing in Frontend Development, Data Analytics, and AI/ML applications. Fusing high-performance web development with data-driven interfaces.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -124,7 +123,7 @@ export default function Hero() {
           >
             View My Work
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+              <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </motion.a>
 
@@ -145,9 +144,9 @@ export default function Hero() {
           className="hero-stats"
         >
           {[
-            { val: '30+', label: 'Projects' },
-            { val: '3+',  label: 'Years Exp.' },
-            { val: '15+', label: 'Happy Clients' },
+            { val: '5+', label: 'Projects' },
+            { val: '3', label: 'Hackathon Wins' },
+            { val: '3+', label: 'Communities Led' },
           ].map(s => (
             <div key={s.label} style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
               <span style={{

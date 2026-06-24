@@ -115,7 +115,7 @@ export default function Preloader({ onComplete }) {
             zIndex: 10,
           }}
         >
-          PAVI<span style={{ color: 'var(--brand-cyan)' }}>.</span>
+          PAVITHRA<span style={{ color: 'var(--brand-cyan)' }}>.</span>
         </motion.div>
       </div>
 

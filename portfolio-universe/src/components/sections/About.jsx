@@ -2,16 +2,15 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const SKILLS = [
-  'Figma', 'Adobe XD', 'Prototyping', 'Design Systems',
-  'React', 'Framer Motion', 'Three.js', 'CSS/SCSS',
-  'User Research', 'Wireframing', 'A/B Testing', 'Accessibility',
-  'Next.js', 'TypeScript', 'Node.js', 'REST APIs',
+  'React.js', 'Next.js', 'JavaScript', 'TypeScript', 'HTML5 & CSS3',
+  'Tailwind CSS', 'Redux UI', 'Python', 'Pandas & NumPy', 'Scikit-Learn',
+  'Three.js', 'Figma (UI/UX)', 'Git & GitHub', 'SQL', 'Java / C',
 ];
 
 const BIOS = [
-  "Hi, I'm Pavi — a UI/UX designer and creative developer obsessed with the intersection of aesthetics and engineering.",
-  "I believe great interfaces aren't just beautiful — they're intuitive, performant, and emotionally resonant. Every pixel has a purpose.",
-  "When I'm not pushing design systems to their limits, I'm exploring the latest in WebGL, interaction design, and generative art.",
+  "Hi, I'm Pavithra — a B.Tech Computer Science Engineering student specializing in Frontend Development, Data Analytics, and AI/ML.",
+  "I love building interactive web interfaces and data visualization applications. Combining strong engineering principles with modern UI/UX design, I create clean, performance-optimized, and impactful solutions.",
+  "From building 3D WebGL solar system simulations to crafting machine learning pipelines for disease forecasting, I approach every project with curiosity and analytical rigor.",
 ];
 
 function Counter({ from = 0, to, suffix = '' }) {
@@ -145,13 +144,13 @@ export default function About() {
             </div>
             <div>
               <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.25rem' }}>
-                Pavi
+                Pavithra
               </div>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontFamily: 'monospace', letterSpacing: '0.1em' }}>
-                UI/UX Designer &amp; Developer
+                Frontend Developer,UI/UX Designer &amp; Data Analyst
               </div>
               <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.75rem', flexWrap: 'wrap' }}>
-                {['Figma', 'React', 'Motion'].map(tag => (
+                {['React', 'Python', 'Figma'].map(tag => (
                   <span key={tag} style={{
                     padding: '0.2rem 0.6rem',
                     borderRadius: '9999px',
@@ -174,10 +173,10 @@ export default function About() {
             style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}
           >
             {[
-              { value: '30', suffix: '+', label: 'Projects Completed' },
-              { value: '3',  suffix: '+', label: 'Years of Experience' },
-              { value: '15', suffix: '+', label: 'Happy Clients' },
-              { value: '5',  suffix: '★', label: 'Avg Client Rating' },
+              { value: '5', suffix: '+', label: 'Projects Completed' },
+              { value: '3', suffix: '', label: 'Hackathon Awards' },
+              { value: '3', suffix: '+', label: 'Tech Communities Led' },
+              { value: '2027', suffix: '', label: 'B.Tech CSE Graduating' },
             ].map(stat => (
               <div key={stat.label} className="elite-glass about-stat-card">
                 <div className="about-stat-number">
